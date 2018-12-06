@@ -61,7 +61,7 @@ func CrcChecksum(bs []byte) uint16 {
 
 //异或校验
 func XorCheckSum(bs []byte) uint8 {
-	var xor = uint8(0)
+	var xor byte = 0
 
 	for _, b := range bs {
 		xor ^= b
