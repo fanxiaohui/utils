@@ -11,7 +11,7 @@ func TestCrcChecksum(t *testing.T) {
 
 	// Only pass t into top-level Convey calls
 	Convey("crc校验", t, func() {
-		So(0xc79a, ShouldEqual, CrcChecksum(tab))
+		So(CrcChecksum(tab), ShouldEqual, 0xc79a)
 	})
 }
 
@@ -20,6 +20,6 @@ func TestXorCheckSum(t *testing.T) {
 
 	// Only pass t into top-level Convey calls
 	Convey("crc校验", t, func() {
-		So(0xbc, ShouldEqual, XorCheckSum(tab))
+		So(XorCheckSum(tab), ShouldEqual, 0xbc)
 	})
 }
