@@ -10,7 +10,13 @@ import (
 //const char *FixVersion(void);
 import "C"
 
-var markStartTime time.Time = time.Now()
+var markStartTime time.Time = time.Now().Local()
+
+const layout = "2006-01-02 15:04:05"
+
+func SetupTime() string {
+	return markStartTime.Format(layout)
+}
 
 // Largest time is 2540400:10:10
 func RunningTime() string {

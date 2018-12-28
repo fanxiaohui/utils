@@ -6,6 +6,12 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
+func TestSetupTime(t *testing.T) {
+	Convey("开机时间格式: 2006-01-02 15:04:05", t, func() {
+		println(SetupTime())
+	})
+}
+
 func TestRunningTime(t *testing.T) {
 	Convey("运时时间格式与最大值: 2540400:10:10", t, func() {
 		println(RunningTime())
