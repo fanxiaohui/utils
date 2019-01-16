@@ -18,7 +18,7 @@ func SetupTime() string {
 	return markStartTime.Format(layout)
 }
 
-// Largest time is 2540400:10:10
+// 运行时间 Largest time is 2540400:10:10
 func RunningTime() string {
 	// get second
 	u := uint64(time.Since(markStartTime) / time.Second)
@@ -31,12 +31,12 @@ func RunningTime() string {
 	return fmt.Sprintf("%02d:%02d:%02d", u, minutes, second)
 }
 
-/*format : 2018-12-09 15:26:26*/
+/*编译时间 format : 2018-12-09 15:26:26*/
 func BuildTime() string {
 	return C.GoString(C.Buildtime())
 }
 
-/*format : major.minor.buildDate - 1.0.20181209 */
+/*编译版本 format : major.minor.buildDate - 1.0.20181209 */
 func Version(major, minor string) string {
 	version := []string{
 		major,
