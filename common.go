@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"unsafe"
 )
 
 //const char *Buildtime(void);
@@ -45,4 +46,14 @@ func Version(major, minor string) string {
 	}
 
 	return strings.Join(version, ".")
+}
+
+// 判断系统大小端
+func IsMachineLittleEndian() bool {
+	var i int16 = 0x0001
+
+	u := unsafe.Pointer(&i)
+	b := *((*byte)(u))
+
+	return b == 0x01
 }

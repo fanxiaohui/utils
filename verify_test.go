@@ -19,7 +19,7 @@ func TestXorCheckSum(t *testing.T) {
 	var tab = []byte{0x04, 0x00, 0x00, 0x00, 0x03, 0xb0, 0x0b}
 
 	// Only pass t into top-level Convey calls
-	Convey("crc校验", t, func() {
+	Convey("异或校验", t, func() {
 		So(XorCheckSum(tab), ShouldEqual, 0xbc)
 	})
 }

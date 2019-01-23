@@ -1,6 +1,7 @@
 package common
 
 import (
+	//"fmt"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -27,5 +28,11 @@ func TestBuildTime(t *testing.T) {
 func TestVersion(t *testing.T) {
 	Convey("版本格式: 1.0.20181209", t, func() {
 		println(Version("1", "2"))
+	})
+}
+
+func TestIsMachineLittleEndian(t *testing.T) {
+	Convey("判断系统大小端 -- windows小端", t, func() {
+		So(IsMachineLittleEndian(), ShouldBeTrue)
 	})
 }
