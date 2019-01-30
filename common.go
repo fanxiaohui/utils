@@ -8,7 +8,7 @@ import (
 )
 
 //const char *Buildtime(void);
-//const char *FixVersion(void);
+//const char *VersionDate(void);
 import "C"
 
 var markStartTime time.Time = time.Now().Local()
@@ -37,12 +37,16 @@ func BuildTime() string {
 	return C.GoString(C.Buildtime())
 }
 
-/*编译版本 format : major.minor.buildDate - 1.0.20181209 */
-func Version(major, minor string) string {
+/*编译版本 format : major.minor.fixed.buildDate - 1.0.1.20181209 Beta*/
+func Version(major, minor, fixed string, isBeta bool) string {
 	version := []string{
 		major,
 		minor,
-		C.GoString(C.FixVersion()),
+		fixed,
+		C.GoString(C.VersionDate()),
+	}
+	if isBeta {
+		return strings.Join(version, ".") + " Beta"
 	}
 
 	return strings.Join(version, ".")

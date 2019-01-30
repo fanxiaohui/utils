@@ -26,8 +26,9 @@ func TestBuildTime(t *testing.T) {
 }
 
 func TestVersion(t *testing.T) {
-	Convey("版本格式: 1.0.20181209", t, func() {
-		println(Version("1", "2"))
+	Convey("版本格式: 1.0.x.20181209 Beta", t, func() {
+		println(Version("1", "2", "1", false))
+		println(Version("1", "2", "1", true))
 	})
 }
 

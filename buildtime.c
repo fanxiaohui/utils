@@ -35,8 +35,8 @@ const char *Buildtime(void)
     return buildtime;
 }
 
-// fix version
-const char *FixVersion(void)
+// version Date
+const char *VersionDate(void)
 {
 	uint8_t i,lengh;
 	char *pstr = __DATE__;
