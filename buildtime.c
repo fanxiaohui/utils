@@ -5,7 +5,7 @@
 
 static const char *months[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
 static char buildtime[20];
-static char fixversion[9];
+static char verDate[9];
 
 /*
 * __DATE__ : May 12 2017  月日年
@@ -35,7 +35,7 @@ const char *Buildtime(void)
     return buildtime;
 }
 
-// version Date
+// version Date like "20181029"
 const char *VersionDate(void)
 {
 	uint8_t i,lengh;
@@ -53,7 +53,7 @@ const char *VersionDate(void)
 	
 	day = pstr[4] == ' ' ? 0 : (pstr[4] - 0x30);
 	day = day * 10 + pstr[5] - 0x30;
-	(void)sprintf(fixversion,"%s%02d%02d", year, month, day);
+	(void)sprintf(verDate,"%s%02d%02d", year, month, day);
 		
-	return fixversion;
+	return verDate;
 }

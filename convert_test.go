@@ -40,7 +40,7 @@ func TestFormatBaseTypes(t *testing.T) {
         So(strings.EqualFold(FormatBaseTypes(ptb), "true"), ShouldBeTrue)
         So(strings.EqualFold(FormatBaseTypes(pti16), "103"), ShouldBeTrue)
         So(strings.EqualFold(FormatBaseTypes(ptu32), "104"), ShouldBeTrue)
-        So(strings.EqualFold(FormatBaseTypes(ptf32), "108.1"), ShouldBeTrue)
+        So(strings.EqualFold(FormatBaseTypes(ptf32, -1), "108.1"), ShouldBeTrue)
         So(strings.EqualFold(FormatBaseTypes(ptf64), "109.2"), ShouldBeTrue)
     })
 }
