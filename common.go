@@ -15,8 +15,14 @@ var markStartTime time.Time = time.Now().Local()
 
 const layout = "2006-01-02 15:04:05"
 
+// 开机时间
 func SetupTime() string {
 	return markStartTime.Format(layout)
+}
+
+// 运行时间 秒数
+func RunningTimeSeconds() uint64 {
+	return uint64(time.Since(markStartTime) / time.Second)
 }
 
 // 运行时间 Largest time is 2540400:10:10

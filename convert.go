@@ -89,6 +89,22 @@ func FormatBaseTypes(val interface{}, args ...int) (s string) {
 	return s
 }
 
+const hexDigit = "0123456789abcdef"
+
+// 转化为16进制字符串, 不含前缀0x
+func FormatSliceHex(a []byte) string {
+	if len(a) == 0 {
+		return ""
+	}
+	buf := make([]byte, 0, len(a)*2)
+	for _, b := range a {
+		buf = append(buf, hexDigit[b>>4])
+		buf = append(buf, hexDigit[b&0xF])
+	}
+
+	return string(buf)
+}
+
 // Convert different types to byte slice using types and functions in unsafe and reflect package.
 // It has higher performance, but notice that it may be not safe when garbage collection happens.
 // Use it when you need to temporary convert a long string to a byte slice and won't keep it for long time.
