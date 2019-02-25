@@ -44,3 +44,14 @@ func TestFormatBaseTypes(t *testing.T) {
 		So(strings.EqualFold(FormatBaseTypes(ptf64), "109.2"), ShouldBeTrue)
 	})
 }
+
+func TestFormatSliceHex(t *testing.T) {
+	Convey("转化为16进制字符串,不含前缀0x, 切片有值", t, func() {
+		hex := []byte{0x12, 0x34, 0x56, 0x78}
+		So(FormatSliceHex(hex), ShouldEqual, "12345678")
+	})
+	Convey("转化为16进制字符串,不含前缀0x, 切片无值", t, func() {
+		hex := []byte{}
+		So(FormatSliceHex(hex), ShouldEqual, "")
+	})
+}

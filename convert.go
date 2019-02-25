@@ -8,8 +8,8 @@ import (
 type argInt []int
 
 // 返回参数索引的值,否则返回给定默认值
-func (this argInt) GetMust(i, defVal int) int {
-	var rt int = defVal
+func (this argInt) GetMust(i, defaultVal int) int {
+	var rt int = defaultVal
 
 	if i >= 0 && i < len(this) {
 		rt = this[i]
@@ -18,10 +18,9 @@ func (this argInt) GetMust(i, defVal int) int {
 	return rt
 }
 
-// 格式基本数据类型的字符串,如果给定无给定参数,则采用默认方式格式化
-// 对于正数,则为默认十进制
-// 对于float32,float64,参数为精度, 精度默认为 -1, 则代表使用最少数量的、但又必需的数字来表示。
-// 函数将浮点数表示为字符串(十进制)并返回。
+// 格式基本数据类型的字符串,如果无给定参数,则采用默认方式格式化
+// 对于正数,默认为十进制
+// 对于float32,float64,参数为精度, 默认精度为 -1, 则代表使用最少数量的、但又必需的数字来表示。函数将浮点数表示为字符串(十进制)并返回。
 func FormatBaseTypes(val interface{}, args ...int) (s string) {
 	switch v := val.(type) {
 	case bool:

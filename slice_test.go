@@ -16,8 +16,8 @@ func TestAppendStr(t *testing.T) {
 		})
 
 		Convey("Append a string that does exist in slice", func() {
-			s = AppendStr(s, "b")
-			So(len(s), ShouldEqual, 2)
+			s = AppendStr(s, "a")
+			So(len(s), ShouldEqual, 1)
 		})
 	})
 }
@@ -32,8 +32,8 @@ func TestAppendUint(t *testing.T) {
 		})
 
 		Convey("Append a uint that does exist in slice", func() {
-			s = AppendUint(s, 2)
-			So(len(s), ShouldEqual, 2)
+			s = AppendUint(s, 1)
+			So(len(s), ShouldEqual, 1)
 		})
 	})
 }
@@ -48,8 +48,8 @@ func TestAppendUint16(t *testing.T) {
 		})
 
 		Convey("Append a uint16 that does exist in slice", func() {
-			s = AppendUint16(s, 2)
-			So(len(s), ShouldEqual, 2)
+			s = AppendUint16(s, 1)
+			So(len(s), ShouldEqual, 1)
 		})
 	})
 }
@@ -172,10 +172,16 @@ func TestCompareSliceStrU(t *testing.T) {
 				[]string{"2", "1", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
 
+		Convey("Compare two slices that do have different elements but has same count", func() {
+			So(CompareSliceStrU(
+				[]string{"2", "1", "4"}, []string{"1", "2", "3"}), ShouldBeFalse)
+		})
+
 		Convey("Compare two slices that have different number of elements", func() {
 			So(!CompareSliceStrU(
 				[]string{"2", "1"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
+
 	})
 }
 

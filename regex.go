@@ -45,6 +45,7 @@ func IsIDCard(s string) bool {
 	return false
 }
 
+// 是否是数字
 func IsDigit(s string) bool {
 	return regexp.MustCompile(regex_digit_parttern).MatchString(s)
 }

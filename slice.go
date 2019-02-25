@@ -3,6 +3,7 @@ package common
 import "strings"
 
 // AppendStr appends string to slice with no duplicates.
+// 追加字符串到无重复项的切片
 func AppendStr(strs []string, str string) []string {
 	for _, s := range strs {
 		if s == str {
@@ -13,6 +14,7 @@ func AppendStr(strs []string, str string) []string {
 }
 
 // AppendUint appends uint to slice with no duplicates.
+// 追加uint到无重复项的切片
 func AppendUint(s []uint, e uint) []uint {
 	for _, v := range s {
 		if v == e {
@@ -23,6 +25,7 @@ func AppendUint(s []uint, e uint) []uint {
 }
 
 // AppendUint16 appends uint16 to slice with no duplicates.
+// 追加uint16到无重复项的切片
 func AppendUint16(s []uint16, e uint16) []uint16 {
 	for _, v := range s {
 		if v == e {
@@ -32,7 +35,7 @@ func AppendUint16(s []uint16, e uint16) []uint16 {
 	return append(s, e)
 }
 
-// 删除uint16切片中的第一个指定元素
+// 删除uint16切片中的 第一个出现的指定元素
 func DeleteFromSliceUint16(s []uint16, e uint16) []uint16 {
 	for i, v := range s {
 		if v == e {
@@ -43,7 +46,7 @@ func DeleteFromSliceUint16(s []uint16, e uint16) []uint16 {
 	return s
 }
 
-// 删除uint16切片中的所有指示元素
+// 删除uint16切片中的 所有出现的指示元素
 func DeleteFromSliceUint16All(s []uint16, e uint16) []uint16 {
 	var tmpS []uint16
 
@@ -56,7 +59,7 @@ func DeleteFromSliceUint16All(s []uint16, e uint16) []uint16 {
 	return tmpS
 }
 
-// 删除uint切片中的第一个指定元素
+// 删除uint切片中的 第一个出现的指定元素
 func DeleteFromSliceUint(s []uint, e uint) []uint {
 	for i, v := range s {
 		if v == e {
@@ -67,7 +70,7 @@ func DeleteFromSliceUint(s []uint, e uint) []uint {
 	return s
 }
 
-// 删除uint切片中的所有指示元素
+// 删除uint切片中的 所有出现的指示元素
 func DeleteFromSliceUintAll(s []uint, e uint) []uint {
 	var tmpS []uint
 
@@ -82,6 +85,7 @@ func DeleteFromSliceUintAll(s []uint, e uint) []uint {
 
 // CompareSliceStr compares two 'string' type slices.
 // It returns true if elements and order are both the same.
+// 比较两个字符串切片,要求元素和顺序都一致才返回true
 func CompareSliceStr(s1, s2 []string) bool {
 	if len(s1) != len(s2) {
 		return false
@@ -98,6 +102,7 @@ func CompareSliceStr(s1, s2 []string) bool {
 
 // CompareSliceStr compares two 'string' type slices.
 // It returns true if elements are the same, and ignores the order.
+// 比较两个字符串切片,要求元素一致,但忽略顺序才返回true
 func CompareSliceStrU(s1, s2 []string) bool {
 	if len(s1) != len(s2) {
 		return false
@@ -118,6 +123,7 @@ func CompareSliceStrU(s1, s2 []string) bool {
 }
 
 // IsSliceContainsStr returns true if the string exists in given slice, ignore case.
+// 字符串切片是否含有指定的元素,忽略大小写
 func IsSliceContainsStr(sl []string, str string) bool {
 	str = strings.ToLower(str)
 	for _, s := range sl {
@@ -129,6 +135,7 @@ func IsSliceContainsStr(sl []string, str string) bool {
 }
 
 // IsSliceContainsInt64 returns true if the int64 exists in given slice.
+// int64切片是否含有指定的元素
 func IsSliceContainsInt64(sl []int64, i int64) bool {
 	for _, s := range sl {
 		if s == i {
@@ -139,6 +146,7 @@ func IsSliceContainsInt64(sl []int64, i int64) bool {
 }
 
 // IsSliceContainsUint returns true if the uint exists in given slice.
+// uint切片是否含有指定的元素
 func IsSliceContainsUint(sl []uint, i uint) bool {
 	for _, s := range sl {
 		if s == i {
@@ -149,6 +157,7 @@ func IsSliceContainsUint(sl []uint, i uint) bool {
 }
 
 // IsSliceContainsUint16 returns true if the uint16 exists in given slice.
+// uint16切片是否含有指定的元素
 func IsSliceContainsUint16(sl []uint16, i uint16) bool {
 	for _, s := range sl {
 		if s == i {
