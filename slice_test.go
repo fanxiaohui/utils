@@ -144,18 +144,15 @@ func TestDeleteFromSliceUintAll(t *testing.T) {
 func TestCompareSliceStr(t *testing.T) {
 	Convey("Compares two 'string' type slices with elements and order", t, func() {
 		Convey("Compare two slices that do have same elements and order", func() {
-			So(CompareSliceStr(
-				[]string{"1", "2", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
+			So(CompareSliceStr([]string{"1", "2", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
 
 		Convey("Compare two slices that do have same elements but does not have same order", func() {
-			So(!CompareSliceStr(
-				[]string{"2", "1", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
+			So(!CompareSliceStr([]string{"2", "1", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
 
 		Convey("Compare two slices that have different number of elements", func() {
-			So(!CompareSliceStr(
-				[]string{"2", "1"}, []string{"1", "2", "3"}), ShouldBeTrue)
+			So(!CompareSliceStr([]string{"2", "1"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
 	})
 }
@@ -163,40 +160,51 @@ func TestCompareSliceStr(t *testing.T) {
 func TestCompareSliceStrU(t *testing.T) {
 	Convey("Compare two 'string' type slices with elements and ignore the order", t, func() {
 		Convey("Compare two slices that do have same elements and order", func() {
-			So(CompareSliceStrU(
-				[]string{"1", "2", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
+			So(CompareSliceStrU([]string{"1", "2", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
 
 		Convey("Compare two slices that do have same elements but does not have same order", func() {
-			So(CompareSliceStrU(
-				[]string{"2", "1", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
+			So(CompareSliceStrU([]string{"2", "1", "3"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
 
 		Convey("Compare two slices that do have different elements but has same count", func() {
-			So(CompareSliceStrU(
-				[]string{"2", "1", "4"}, []string{"1", "2", "3"}), ShouldBeFalse)
+			So(CompareSliceStrU([]string{"2", "1", "4"}, []string{"1", "2", "3"}), ShouldBeFalse)
 		})
 
 		Convey("Compare two slices that have different number of elements", func() {
-			So(!CompareSliceStrU(
-				[]string{"2", "1"}, []string{"1", "2", "3"}), ShouldBeTrue)
+			So(!CompareSliceStrU([]string{"2", "1"}, []string{"1", "2", "3"}), ShouldBeTrue)
 		})
 
 	})
 }
 
 func TestSliceContainsStr(t *testing.T) {
-	Convey("字符串slice是否含有指定字符串", t, func() {
+	Convey("字符串slice是否含有指定字符串,大小写敏感", t, func() {
 		s := []string{"A", "b", "c"}
 
-		Convey("字符串slice含有指定字符串", func() {
-			So(IsSliceContainsStr(
-				s, "a"), ShouldBeTrue)
+		Convey("字符串slice含有指定字符串,大小写敏感", func() {
+			So(IsSliceContainsStr(s, "A"), ShouldBeTrue)
 		})
 
-		Convey("字符串slice不含有指定字符串", func() {
-			So(IsSliceContainsStr(
-				s, "f"), ShouldBeFalse)
+		Convey("字符串slice不含有指定字符串,大小写敏感,因为是大小写差异", func() {
+			So(IsSliceContainsStr(s, "a"), ShouldBeFalse)
+		})
+
+		Convey("字符串slice不含有指定字符串,大小写敏感", func() {
+			So(IsSliceContainsStr(s, "f"), ShouldBeFalse)
+		})
+	})
+}
+func TestSliceContainsStrNocase(t *testing.T) {
+	Convey("字符串slice是否含有指定字符串,忽略大小写", t, func() {
+		s := []string{"A", "b", "c"}
+
+		Convey("字符串slice含有指定字符串,忽略大小写", func() {
+			So(IsSliceContainsStrNocase(s, "a"), ShouldBeTrue)
+		})
+
+		Convey("字符串slice不含有指定字符串,忽略大小写", func() {
+			So(IsSliceContainsStrNocase(s, "f"), ShouldBeFalse)
 		})
 	})
 }
@@ -206,13 +214,11 @@ func TestSliceContainsInt64(t *testing.T) {
 		v := []int64{1, 2, 3, 4, 5}
 
 		Convey("int64 slice含有指定值", func() {
-			So(IsSliceContainsInt64(
-				v, 2), ShouldBeTrue)
+			So(IsSliceContainsInt64(v, 2), ShouldBeTrue)
 		})
 
 		Convey("int64 slice不含有指定值", func() {
-			So(IsSliceContainsInt64(
-				v, 9), ShouldBeFalse)
+			So(IsSliceContainsInt64(v, 9), ShouldBeFalse)
 		})
 	})
 }
@@ -221,13 +227,11 @@ func TestSliceContainsUint(t *testing.T) {
 		v := []uint{1, 2, 3, 4, 5}
 
 		Convey("uint slice含有指定值", func() {
-			So(IsSliceContainsUint(
-				v, 2), ShouldBeTrue)
+			So(IsSliceContainsUint(v, 2), ShouldBeTrue)
 		})
 
 		Convey("uint slice不含有指定值", func() {
-			So(IsSliceContainsUint(
-				v, 9), ShouldBeFalse)
+			So(IsSliceContainsUint(v, 9), ShouldBeFalse)
 		})
 	})
 }
@@ -237,13 +241,11 @@ func TestSliceContainsUint16(t *testing.T) {
 		v := []uint16{1, 2, 3, 4, 5}
 
 		Convey("uint16 slice含有指定值", func() {
-			So(IsSliceContainsUint16(
-				v, 2), ShouldBeTrue)
+			So(IsSliceContainsUint16(v, 2), ShouldBeTrue)
 		})
 
 		Convey("uint16 slice不含有指定值", func() {
-			So(IsSliceContainsUint16(
-				v, 9), ShouldBeFalse)
+			So(IsSliceContainsUint16(v, 9), ShouldBeFalse)
 		})
 	})
 }

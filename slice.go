@@ -122,9 +122,20 @@ func CompareSliceStrU(s1, s2 []string) bool {
 	return true
 }
 
-// IsSliceContainsStr returns true if the string exists in given slice, ignore case.
-// 字符串切片是否含有指定的元素,忽略大小写
+// IsSliceContainsStr returns true if the string exists in given slice
+// 字符串切片是否含有指定的元素,大小写敏感
 func IsSliceContainsStr(sl []string, str string) bool {
+	for _, s := range sl {
+		if s == str {
+			return true
+		}
+	}
+	return false
+}
+
+// IsSliceContainsStrNocase returns true if the string exists in given slice, ignore case.
+// 字符串切片是否含有指定的元素,忽略大小写
+func IsSliceContainsStrNocase(sl []string, str string) bool {
 	str = strings.ToLower(str)
 	for _, s := range sl {
 		if strings.ToLower(s) == str {
