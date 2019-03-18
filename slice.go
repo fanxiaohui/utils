@@ -35,6 +35,30 @@ func AppendUint16(s []uint16, e uint16) []uint16 {
 	return append(s, e)
 }
 
+// 删除string切片中的 第一个出现的指定元素
+func DeleteFromSliceStr(s []string, e string) []string {
+	for i, v := range s {
+		if v == e {
+			return append(s[:i], s[i+1:]...)
+		}
+	}
+
+	return s
+}
+
+// 删除string切片中的 所有出现的指示元素
+func DeleteFromSliceStrAll(s []string, e string) []string {
+	var tmpS []string
+
+	for _, v := range s {
+		if v != e {
+			tmpS = append(tmpS, v)
+		}
+	}
+
+	return tmpS
+}
+
 // 删除uint16切片中的 第一个出现的指定元素
 func DeleteFromSliceUint16(s []uint16, e uint16) []uint16 {
 	for i, v := range s {

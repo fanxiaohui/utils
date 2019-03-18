@@ -54,6 +54,48 @@ func TestAppendUint16(t *testing.T) {
 	})
 }
 
+func TestDeleteFromSliceStr(t *testing.T) {
+	Convey("从string的切片中删除第一个指定元素", t, func() {
+		s := []string{"a", "b", "b", "c"}
+
+		Convey("从string的切片中删除第一个指定元素, 无指定元素值", func() {
+			s = DeleteFromSliceStr(s, "d")
+			So(len(s), ShouldEqual, 4)
+		})
+
+		Convey("从string的切片中删除第一个指定元素, 有指定元素值", func() {
+			s = DeleteFromSliceStr(s, "b")
+			So(len(s), ShouldEqual, 3)
+		})
+
+		Convey("从string的切片中删除第一个指定元素, 切片是个nil", func() {
+			s = DeleteFromSliceStr(nil, "b")
+			So(s, ShouldBeNil)
+		})
+	})
+}
+
+func TestDeleteFromSliceStrAll(t *testing.T) {
+	Convey("从string的切片中删除所有指定元素", t, func() {
+		s := []string{"a", "b", "b", "c"}
+
+		Convey("从string的切片中删除所有指定元素, 无指定元素值", func() {
+			s = DeleteFromSliceStrAll(s, "d")
+			So(len(s), ShouldEqual, 4)
+		})
+
+		Convey("从string的切片中删除所有指定元素, 有指定元素值", func() {
+			s = DeleteFromSliceStrAll(s, "b")
+			So(len(s), ShouldEqual, 2)
+		})
+
+		Convey("从string的切片中删除所有指定元素, 切片是个nil", func() {
+			s = DeleteFromSliceStrAll(nil, "b")
+			So(s, ShouldBeNil)
+		})
+	})
+}
+
 func TestDeleteFromSliceUint16(t *testing.T) {
 	Convey("从uint16的切片中删除第一个指定元素", t, func() {
 		s := []uint16{1, 2, 2, 3}
