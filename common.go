@@ -2,8 +2,6 @@ package common
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
 	"time"
 	"unsafe"
 )
@@ -46,17 +44,12 @@ func BuildDateTime() string {
 
 /*编译版本 format : major.minor.fixed - 1.0.1 Beta*/
 func Version(major, minor, fixed int, isBeta bool) string {
-	version := []string{
-		strconv.FormatInt(int64(major), 10),
-		strconv.FormatInt(int64(minor), 10),
-		strconv.FormatInt(int64(fixed), 10),
-	}
-
+	s := fmt.Sprintf("V%d.%d.%d", major, minor, fixed)
 	if isBeta {
-		return "V" + strings.Join(version, ".") + " Beta"
+		return s + " Beta"
 	}
 
-	return "V" + strings.Join(version, ".")
+	return s
 }
 
 // 判断系统大小端
