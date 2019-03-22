@@ -2,6 +2,7 @@ package common
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 	"unsafe"
@@ -39,23 +40,23 @@ func RunningTime() string {
 }
 
 /*编译时间 format : 2018-12-09 15:26:26*/
-func BuildTime() string {
+func BuildDateTime() string {
 	return C.GoString(C.Buildtime())
 }
 
-/*编译版本 format : major.minor.fixed.buildDate - 1.0.1.20181209 Beta*/
-func Version(major, minor, fixed string, isBeta bool) string {
+/*编译版本 format : major.minor.fixed - 1.0.1 Beta*/
+func Version(major, minor, fixed int, isBeta bool) string {
 	version := []string{
-		major,
-		minor,
-		fixed,
-		C.GoString(C.VersionDate()),
-	}
-	if isBeta {
-		return strings.Join(version, ".") + " Beta"
+		strconv.FormatInt(int64(major), 10),
+		strconv.FormatInt(int64(minor), 10),
+		strconv.FormatInt(int64(fixed), 10),
 	}
 
-	return strings.Join(version, ".")
+	if isBeta {
+		return "V" + strings.Join(version, ".") + " Beta"
+	}
+
+	return "V" + strings.Join(version, ".")
 }
 
 // 判断系统大小端
