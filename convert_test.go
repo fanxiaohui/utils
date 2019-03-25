@@ -8,20 +8,30 @@ import (
 )
 
 func TestFormatBaseTypes(t *testing.T) {
-	ts := map[interface{}]string{
-		true:            "true",
-		false:           "false",
-		int(8):          "8",
-		int(-8):         "-8",
-		float32(100.2):  "100.2",
-		float32(-100.2): "-100.2",
-		float64(100.2):  "100.2",
-		float64(-100.2): "-100.2",
+	ts := []struct {
+		got  interface{}
+		want string
+	}{
+		{true, "true"},
+		{float32(100.2), "100.2"},
+		{float64(100.2), "100.2"},
+		{int(-8), "-8"},
+		{int8(8), "8"},
+		{int16(-3000), "-3000"},
+		{int32(50000), "50000"},
+		{int64(4324), "4324"},
+		{uint(190), "190"},
+		{uint8(8), "8"},
+		{uint16(3000), "3000"},
+		{uint32(5000000), "5000000"},
+		{uint64(4324), "4324"},
+		{"hello", "hello"},
+		{[]byte{'1', '2', '3'}, "123"},
 	}
 
 	Convey("基本数据类型 转 字符串", t, func() {
-		for k, v := range ts {
-			So(strings.EqualFold(FormatBaseTypes(k), v), ShouldBeTrue)
+		for _, v := range ts {
+			So(strings.EqualFold(FormatBaseTypes(v.got), v.want), ShouldBeTrue)
 		}
 	})
 

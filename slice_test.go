@@ -1,6 +1,8 @@
 package common
 
 import (
+	"bytes"
+	"strings"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -289,5 +291,21 @@ func TestSliceContainsUint16(t *testing.T) {
 		Convey("uint16 slice不含有指定值", func() {
 			So(IsSliceContainsUint16(v, 9), ShouldBeFalse)
 		})
+	})
+}
+
+func TestReverseSliceBytes(t *testing.T) {
+	Convey("Reverse Slice Bytes", t, func() {
+		b := []byte{1, 2, 3, 4, 5}
+		want := []byte{5, 4, 3, 2, 1}
+		So(bytes.Equal(ReverseSliceBytes(b), want), ShouldBeTrue)
+	})
+}
+
+func TestReverseString(t *testing.T) {
+	Convey("Reverse string", t, func() {
+		s := "hello"
+		want := "olleh"
+		So(strings.EqualFold(ReverseString(s), want), ShouldBeTrue)
 	})
 }

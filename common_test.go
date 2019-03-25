@@ -14,9 +14,13 @@ func TestSetupTime(t *testing.T) {
 }
 
 func TestRunningTime(t *testing.T) {
-	Convey("运时时间格式与最大值: 2540400:10:10", t, func() {
+	Convey("运时时间格式和最大值: 2540400:10:10", t, func() {
 		println(RunningTime())
 	})
+	Convey("运时j时秒数", t, func() {
+		println(RunningTimeSeconds())
+	})
+
 }
 
 func TestBuildTime(t *testing.T) {
