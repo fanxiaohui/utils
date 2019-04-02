@@ -1,4 +1,4 @@
-package common
+package utils
 
 import (
 	. "github.com/smartystreets/goconvey/convey"

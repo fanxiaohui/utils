@@ -2,7 +2,7 @@
 //
 // test at 20180925
 
-package common
+package utils
 
 // Table of CRC values for high–order byte
 var crcHighBytes = []byte{
