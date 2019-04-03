@@ -35,6 +35,17 @@ func AppendUint16(s []uint16, e uint16) []uint16 {
 	return append(s, e)
 }
 
+// Appendint64 appends int64 to slice with no duplicates.
+// 追加uint16到无重复项的切片
+func AppendInt64(s []int64, e int64) []int64 {
+	for _, v := range s {
+		if v == e {
+			return s
+		}
+	}
+	return append(s, e)
+}
+
 // 删除string切片中的 第一个出现的指定元素
 func DeleteFromSliceStr(s []string, e string) []string {
 	for i, v := range s {
@@ -97,6 +108,30 @@ func DeleteFromSliceUint(s []uint, e uint) []uint {
 // 删除uint切片中的 所有出现的指示元素
 func DeleteFromSliceUintAll(s []uint, e uint) []uint {
 	var tmpS []uint
+
+	for _, v := range s {
+		if v != e {
+			tmpS = append(tmpS, v)
+		}
+	}
+
+	return tmpS
+}
+
+// 删除int64切片中的 第一个出现的指定元素
+func DeleteFromSliceInt64(s []int64, e int64) []int64 {
+	for i, v := range s {
+		if v == e {
+			return append(s[:i], s[i+1:]...)
+		}
+	}
+
+	return s
+}
+
+// 删除int64切片中的 所有出现的指示元素
+func DeleteFromSliceInt64All(s []int64, e int64) []int64 {
+	var tmpS []int64
 
 	for _, v := range s {
 		if v != e {
