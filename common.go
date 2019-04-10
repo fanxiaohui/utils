@@ -44,7 +44,7 @@ func BuildDateTime() string {
 
 /*编译版本 format : major.minor.fixed - 1.0.1 Beta*/
 func Version(major, minor, fixed int, isBeta bool) string {
-	s := fmt.Sprintf("V%d.%d.%d", major, minor, fixed)
+	s := fmt.Sprintf("v%d.%d.%d", major, minor, fixed)
 	if isBeta {
 		return s + " Beta"
 	}
