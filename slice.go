@@ -175,10 +175,8 @@ func CompareSliceStrU(s1, s2 []string) bool {
 			}
 		}
 	}
-	if len(s2) > 0 {
-		return false
-	}
-	return true
+
+	return len(s2) > 0
 }
 
 // IsSliceContainsStr returns true if the string exists in given slice
