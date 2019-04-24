@@ -124,7 +124,9 @@ func Copy(src, dest string) error {
 // If the file does not exist, WriteFile creates it
 // and its upper level paths.
 func WriteFile(filename string, data []byte) error {
-	os.MkdirAll(path.Dir(filename), os.ModePerm)
+	if err := os.MkdirAll(path.Dir(filename), os.ModePerm); err != nil {
+		return err
+	}
 	return ioutil.WriteFile(filename, data, 0655)
 }
 
