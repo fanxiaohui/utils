@@ -35,8 +35,8 @@ func AppendUint16(s []uint16, e uint16) []uint16 {
 	return append(s, e)
 }
 
-// Appendint64 appends int64 to slice with no duplicates.
-// 追加uint16到无重复项的切片
+// AppendInt64 appends int64 to slice with no duplicates.
+// 追加int16到无重复项的切片
 func AppendInt64(s []int64, e int64) []int64 {
 	for _, v := range s {
 		if v == e {
@@ -46,7 +46,7 @@ func AppendInt64(s []int64, e int64) []int64 {
 	return append(s, e)
 }
 
-// 删除string切片中的 第一个出现的指定元素
+// DeleteFromSliceStr 删除string切片中的 第一个出现的指定元素
 func DeleteFromSliceStr(s []string, e string) []string {
 	for i, v := range s {
 		if v == e {
@@ -57,7 +57,7 @@ func DeleteFromSliceStr(s []string, e string) []string {
 	return s
 }
 
-// 删除string切片中的 所有出现的指示元素
+// DeleteFromSliceStrAll 删除string切片中的 所有出现的指示元素
 func DeleteFromSliceStrAll(s []string, e string) []string {
 	var tmpS []string
 
@@ -70,7 +70,7 @@ func DeleteFromSliceStrAll(s []string, e string) []string {
 	return tmpS
 }
 
-// 删除uint16切片中的 第一个出现的指定元素
+// DeleteFromSliceUint16 删除uint16切片中的 第一个出现的指定元素
 func DeleteFromSliceUint16(s []uint16, e uint16) []uint16 {
 	for i, v := range s {
 		if v == e {
@@ -81,7 +81,7 @@ func DeleteFromSliceUint16(s []uint16, e uint16) []uint16 {
 	return s
 }
 
-// 删除uint16切片中的 所有出现的指示元素
+// DeleteFromSliceUint16All 删除uint16切片中的 所有出现的指示元素
 func DeleteFromSliceUint16All(s []uint16, e uint16) []uint16 {
 	var tmpS []uint16
 
@@ -94,7 +94,7 @@ func DeleteFromSliceUint16All(s []uint16, e uint16) []uint16 {
 	return tmpS
 }
 
-// 删除uint切片中的 第一个出现的指定元素
+// DeleteFromSliceUint 删除uint切片中的 第一个出现的指定元素
 func DeleteFromSliceUint(s []uint, e uint) []uint {
 	for i, v := range s {
 		if v == e {
@@ -105,7 +105,7 @@ func DeleteFromSliceUint(s []uint, e uint) []uint {
 	return s
 }
 
-// 删除uint切片中的 所有出现的指示元素
+// DeleteFromSliceUintAll 删除uint切片中的 所有出现的指示元素
 func DeleteFromSliceUintAll(s []uint, e uint) []uint {
 	var tmpS []uint
 
@@ -118,7 +118,7 @@ func DeleteFromSliceUintAll(s []uint, e uint) []uint {
 	return tmpS
 }
 
-// 删除int64切片中的 第一个出现的指定元素
+// DeleteFromSliceInt64 删除int64切片中的 第一个出现的指定元素
 func DeleteFromSliceInt64(s []int64, e int64) []int64 {
 	for i, v := range s {
 		if v == e {
@@ -129,7 +129,7 @@ func DeleteFromSliceInt64(s []int64, e int64) []int64 {
 	return s
 }
 
-// 删除int64切片中的 所有出现的指示元素
+// DeleteFromSliceInt64All 删除int64切片中的 所有出现的指示元素
 func DeleteFromSliceInt64All(s []int64, e int64) []int64 {
 	var tmpS []int64
 
@@ -159,7 +159,7 @@ func CompareSliceStr(s1, s2 []string) bool {
 	return true
 }
 
-// CompareSliceStr compares two 'string' type slices.
+// CompareSliceStrU compares two 'string' type slices.
 // It returns true if elements are the same, and ignores the order.
 // 比较两个字符串切片,要求元素一致,但忽略顺序才返回true
 func CompareSliceStrU(s1, s2 []string) bool {
@@ -235,7 +235,7 @@ func IsSliceContainsUint16(sl []uint16, i uint16) bool {
 	return false
 }
 
-// 反转[]byte
+// ReverseSliceBytes 反转[]byte
 func ReverseSliceBytes(b []byte) []byte {
 	for from, to := 0, len(b)-1; from < to; from, to = from+1, to-1 {
 		b[from], b[to] = b[to], b[from]
@@ -244,7 +244,7 @@ func ReverseSliceBytes(b []byte) []byte {
 	return b
 }
 
-// 反转字符串
+// ReverseString 反转字符串
 func ReverseString(s string) string {
 	runes := []rune(s)
 

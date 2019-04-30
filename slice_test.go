@@ -56,6 +56,38 @@ func TestAppendUint16(t *testing.T) {
 	})
 }
 
+func TestAppendInt64(t *testing.T) {
+	Convey("appends int64 to slice with no duplicates", t, func() {
+		type args struct {
+			s []int64
+			e int64
+		}
+		tests := []struct {
+			name string
+			args args
+			want int
+		}{
+			{
+				"Append a int64 that does not exist in slice",
+				args{[]int64{1, 2}, int64(3)},
+				int(3),
+			},
+			{
+				"Append a int64 that does exist in slice",
+				args{[]int64{1, 2}, 2},
+				2,
+			},
+		}
+
+		for _, tt := range tests {
+			Convey(tt.name, func() {
+				s := AppendInt64(tt.args.s, tt.args.e)
+				So(len(s), ShouldEqual, tt.want)
+			})
+		}
+	})
+}
+
 func TestDeleteFromSliceStr(t *testing.T) {
 	Convey("从string的切片中删除第一个指定元素", t, func() {
 		s := []string{"a", "b", "b", "c"}
@@ -303,9 +335,20 @@ func TestReverseSliceBytes(t *testing.T) {
 }
 
 func TestReverseString(t *testing.T) {
-	Convey("Reverse string", t, func() {
-		s := "hello"
-		want := "olleh"
-		So(strings.EqualFold(ReverseString(s), want), ShouldBeTrue)
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"Reverse String", args{"hello"}, "olleh"},
+	}
+
+	Convey("ReverseString", t, func() {
+		for _, tt := range tests {
+			So(strings.EqualFold(ReverseString(tt.args.s), tt.want), ShouldBeTrue)
+		}
 	})
 }

@@ -117,7 +117,7 @@ func TestIsUrl(t *testing.T) {
 	}
 	Convey("是否是url地址", t, func() {
 		for k, v := range urls {
-			So(IsUrl(k), ShouldEqual, v)
+			So(IsURL(k), ShouldEqual, v)
 		}
 	})
 

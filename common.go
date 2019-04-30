@@ -10,21 +10,21 @@ import (
 //const char *VersionDate(void);
 import "C"
 
-var markStartTime time.Time = time.Now().Local()
+var markStartTime = time.Now().Local()
 
 const layout = "2006-01-02 15:04:05"
 
-// 开机时间
+// SetupTime 开机时间
 func SetupTime() string {
 	return markStartTime.Format(layout)
 }
 
-// 运行时间 秒数
+// RunningTimeSeconds 运行时间 秒数
 func RunningTimeSeconds() uint64 {
 	return uint64(time.Since(markStartTime) / time.Second)
 }
 
-// 运行时间 Largest time is 2540400:10:10
+// RunningTime 运行时间 Largest time is 2540400:10:10
 func RunningTime() string {
 	// get second
 	u := uint64(time.Since(markStartTime) / time.Second)
@@ -37,12 +37,12 @@ func RunningTime() string {
 	return fmt.Sprintf("%02d:%02d:%02d", u, minutes, second)
 }
 
-/*编译时间 format : 2018-12-09 15:26:26*/
+// BuildDateTime 编译时间 format : 2018-12-09 15:26:26
 func BuildDateTime() string {
 	return C.GoString(C.Buildtime())
 }
 
-/*编译版本 format : major.minor.fixed - 1.0.1 Beta*/
+// Version 编译版本 format : major.minor.fixed - 1.0.1 Beta
 func Version(major, minor, fixed int, isBeta bool) string {
 	s := fmt.Sprintf("v%d.%d.%d", major, minor, fixed)
 	if isBeta {
@@ -52,7 +52,7 @@ func Version(major, minor, fixed int, isBeta bool) string {
 	return s
 }
 
-// 判断系统大小端
+// IsMachineLittleEndian 判断系统大小端
 func IsMachineLittleEndian() bool {
 	var i int16 = 0x0001
 

@@ -1,6 +1,4 @@
 //
-//
-// test at 20180925
 
 package utils
 
@@ -44,7 +42,7 @@ var crcLowBytes = []byte{
 	0x44, 0x84, 0x85, 0x45, 0x87, 0x47, 0x46, 0x86, 0x82, 0x42, 0x43, 0x83, 0x41, 0x81, 0x80, 0x40,
 }
 
-// crc校验
+// CrcChecksum crc校验
 func CrcChecksum(bs []byte) uint16 {
 	var idx, b byte
 	var crclo byte = 0xff
@@ -59,9 +57,9 @@ func CrcChecksum(bs []byte) uint16 {
 	return uint16(crchi)<<8 | uint16(crclo)
 }
 
-//异或校验
+// XorCheckSum 异或校验
 func XorCheckSum(bs []byte) byte {
-	var xor byte = 0
+	var xor byte
 
 	for _, b := range bs {
 		xor ^= b
