@@ -29,13 +29,6 @@ func TestBuildTime(t *testing.T) {
 	})
 }
 
-func TestVersion(t *testing.T) {
-	Convey("版本格式: V1.0.x Beta", t, func() {
-		println(Version(1, 2, 1, false))
-		println(Version(1, 2, 1, true))
-	})
-}
-
 func TestIsMachineLittleEndian(t *testing.T) {
 	Convey("判断系统大小端 -- windows小端", t, func() {
 		So(IsMachineLittleEndian(), ShouldBeTrue)

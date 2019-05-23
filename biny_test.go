@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"bytes"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -40,35 +39,5 @@ func TestUint32(t *testing.T) {
 
 	Convey("4字节组成uint32", t, func() {
 		So(BuildUint32(byte0, byte1, byte2, byte3), ShouldEqual, val32)
-	})
-}
-
-func TestPutUint(t *testing.T) {
-	s2 := []byte{1, 2}
-	s4 := []byte{1, 2, 3, 4}
-	s8 := []byte{1, 2, 3, 4, 5, 6, 7, 8}
-
-	Convey("uint16转换成切片 -- 小端", t, func() {
-		So(bytes.Equal(Little_Endian.Putuint16(0x0201), s2), ShouldBeTrue)
-	})
-
-	Convey("uint32转换成切片 -- 小端", t, func() {
-		So(bytes.Equal(Little_Endian.Putuint32(0x04030201), s4), ShouldBeTrue)
-	})
-
-	Convey("uint64转换成切片 --  小端", t, func() {
-		So(bytes.Equal(Little_Endian.Putuint64(0x0807060504030201), s8), ShouldBeTrue)
-	})
-
-	Convey("uint16转换成切片 -- 大端", t, func() {
-		So(bytes.Equal(Big_Endian.Putuint16(0x0102), s2), ShouldBeTrue)
-	})
-
-	Convey("uint32转换成切片 -- 大端", t, func() {
-		So(bytes.Equal(Big_Endian.Putuint32(0x01020304), s4), ShouldBeTrue)
-	})
-
-	Convey("uint64转换成切片 --  大端", t, func() {
-		So(bytes.Equal(Big_Endian.Putuint64(0x0102030405060708), s8), ShouldBeTrue)
 	})
 }

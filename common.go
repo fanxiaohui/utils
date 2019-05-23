@@ -42,16 +42,6 @@ func BuildDateTime() string {
 	return C.GoString(C.Buildtime())
 }
 
-// Version 编译版本 format : major.minor.fixed - 1.0.1 Beta
-func Version(major, minor, fixed int, isBeta bool) string {
-	s := fmt.Sprintf("v%d.%d.%d", major, minor, fixed)
-	if isBeta {
-		return s + " Beta"
-	}
-
-	return s
-}
-
 // IsMachineLittleEndian 判断系统大小端
 func IsMachineLittleEndian() bool {
 	var i int16 = 0x0001

@@ -36,16 +36,16 @@ func TestFormatBaseTypes(t *testing.T) {
 	})
 
 	Convey("基本数据类型(指针) 转 字符串", t, func() {
-		var tb bool = true
-		var ptb *bool = &tb
+		var tb = true
+		var ptb = &tb
 		var ti16 int16 = 103
-		var pti16 *int16 = &ti16
+		var pti16 = &ti16
 		var tu32 uint32 = 104
-		var ptu32 *uint32 = &tu32
+		var ptu32 = &tu32
 		var tf32 float32 = 108.1
-		var ptf32 *float32 = &tf32
-		var tf64 float64 = 109.2
-		var ptf64 *float64 = &tf64
+		var ptf32 = &tf32
+		var tf64 = 109.2
+		var ptf64 = &tf64
 
 		So(strings.EqualFold(FormatBaseTypes(ptb), "true"), ShouldBeTrue)
 		So(strings.EqualFold(FormatBaseTypes(pti16), "103"), ShouldBeTrue)
