@@ -2,42 +2,106 @@ package utils
 
 import (
 	"testing"
-
-	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestUint16(t *testing.T) {
-	var val16 uint16 = 0x1234
-	var lo8 byte = 0x34
-	var hi8 byte = 0x12
-
-	Convey("uint16拆分成高低字节", t, func() {
-		tmpl, tmph := BreakUint16(val16)
-		So(tmpl, ShouldEqual, lo8)
-		So(tmph, ShouldEqual, hi8)
-	})
-
-	Convey("高低字节组成uint16", t, func() {
-		So(BuildUint16(lo8, hi8), ShouldEqual, val16)
-	})
+func TestBreakUint16(t *testing.T) {
+	type args struct {
+		v uint16
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantLoByte byte
+		wantHiByte byte
+	}{
+		{"uint16 break to byte", args{0x1234}, 0x34, 0x12},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotLoByte, gotHiByte := BreakUint16(tt.args.v)
+			if gotLoByte != tt.wantLoByte {
+				t.Errorf("BreakUint16() gotLoByte = %v, want %v", gotLoByte, tt.wantLoByte)
+			}
+			if gotHiByte != tt.wantHiByte {
+				t.Errorf("BreakUint16() gotHiByte = %v, want %v", gotHiByte, tt.wantHiByte)
+			}
+		})
+	}
 }
 
-func TestUint32(t *testing.T) {
-	var val32 uint32 = 0x12345678
-	var byte0 byte = 0x78
-	var byte1 byte = 0x56
-	var byte2 byte = 0x34
-	var byte3 byte = 0x12
+func TestBreakUint32(t *testing.T) {
+	type args struct {
+		v uint32
+	}
+	tests := []struct {
+		name      string
+		args      args
+		wantByte0 byte
+		wantByte1 byte
+		wantByte2 byte
+		wantByte3 byte
+	}{
+		{"uint32 break to byte", args{0x12345678}, 0x78, 0x56, 0x34, 0x12},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotByte0, gotByte1, gotByte2, gotByte3 := BreakUint32(tt.args.v)
+			if gotByte0 != tt.wantByte0 {
+				t.Errorf("BreakUint32() gotByte0 = %v, want %v", gotByte0, tt.wantByte0)
+			}
+			if gotByte1 != tt.wantByte1 {
+				t.Errorf("BreakUint32() gotByte1 = %v, want %v", gotByte1, tt.wantByte1)
+			}
+			if gotByte2 != tt.wantByte2 {
+				t.Errorf("BreakUint32() gotByte2 = %v, want %v", gotByte2, tt.wantByte2)
+			}
+			if gotByte3 != tt.wantByte3 {
+				t.Errorf("BreakUint32() gotByte3 = %v, want %v", gotByte3, tt.wantByte3)
+			}
+		})
+	}
+}
 
-	Convey("uint32拆分成4字节", t, func() {
-		bt0, bt1, bt2, bt3 := BreakUint32(val32)
-		So(bt0, ShouldEqual, byte0)
-		So(bt1, ShouldEqual, byte1)
-		So(bt2, ShouldEqual, byte2)
-		So(bt3, ShouldEqual, byte3)
-	})
+func TestBuildUint16(t *testing.T) {
+	type args struct {
+		loByte byte
+		Hibyte byte
+	}
+	tests := []struct {
+		name string
+		args args
+		want uint16
+	}{
+		{"build byte to uint16", args{0x34, 0x12}, 0x1234},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := BuildUint16(tt.args.loByte, tt.args.Hibyte); got != tt.want {
+				t.Errorf("BuildUint16() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
-	Convey("4字节组成uint32", t, func() {
-		So(BuildUint32(byte0, byte1, byte2, byte3), ShouldEqual, val32)
-	})
+func TestBuildUint32(t *testing.T) {
+	type args struct {
+		Byte0 byte
+		Byte1 byte
+		Byte2 byte
+		Byte3 byte
+	}
+	tests := []struct {
+		name string
+		args args
+		want uint32
+	}{
+		{"build byte to uint32", args{0x78, 0x56, 0x34, 0x12}, 0x12345678},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := BuildUint32(tt.args.Byte0, tt.args.Byte1, tt.args.Byte2, tt.args.Byte3); got != tt.want {
+				t.Errorf("BuildUint32() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }

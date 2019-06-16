@@ -75,8 +75,6 @@ func FormatBaseTypes(val interface{}, args ...int) (s string) {
 		s = strconv.FormatUint(uint64(*v), argInt(args).GetMust(0, 10))
 	case string:
 		s = v
-	case *string:
-		s = *v
 	case []byte:
 		s = string(v)
 	default:

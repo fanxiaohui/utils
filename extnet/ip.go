@@ -25,12 +25,12 @@ func Numer2IP(l uint32) net.IP {
 
 // Dot2Numer 点分十进制字符串转换数值
 func Dot2Numer(s string) (uint32, error) {
-	return Net2Numer(net.ParseIP(s))
+	return IP2Numer(net.ParseIP(s))
 }
 
 // Number2Dot 数值转换为点分十进制字符串
 func Number2Dot(l uint32) string {
-	return Numer2Net(l).String()
+	return Numer2IP(l).String()
 }
 
 // Mask2Dot mask 转为点分十进制作字符串

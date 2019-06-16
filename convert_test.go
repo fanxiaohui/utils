@@ -1,56 +1,38 @@
 package utils
 
-import (
-	"strings"
-	"testing"
-
-	. "github.com/smartystreets/goconvey/convey"
-)
+import "testing"
 
 func TestFormatBaseTypes(t *testing.T) {
-	ts := []struct {
-		got  interface{}
-		want string
-	}{
-		{true, "true"},
-		{float32(100.2), "100.2"},
-		{float64(100.2), "100.2"},
-		{int(-8), "-8"},
-		{int8(8), "8"},
-		{int16(-3000), "-3000"},
-		{int32(50000), "50000"},
-		{int64(4324), "4324"},
-		{uint(190), "190"},
-		{uint8(8), "8"},
-		{uint16(3000), "3000"},
-		{uint32(5000000), "5000000"},
-		{uint64(4324), "4324"},
-		{"hello", "hello"},
-		{[]byte{'1', '2', '3'}, "123"},
+	type args struct {
+		val  interface{}
+		args []int
 	}
-
-	Convey("基本数据类型 转 字符串", t, func() {
-		for _, v := range ts {
-			So(strings.EqualFold(FormatBaseTypes(v.got), v.want), ShouldBeTrue)
-		}
-	})
-
-	Convey("基本数据类型(指针) 转 字符串", t, func() {
-		var tb = true
-		var ptb = &tb
-		var ti16 int16 = 103
-		var pti16 = &ti16
-		var tu32 uint32 = 104
-		var ptu32 = &tu32
-		var tf32 float32 = 108.1
-		var ptf32 = &tf32
-		var tf64 = 109.2
-		var ptf64 = &tf64
-
-		So(strings.EqualFold(FormatBaseTypes(ptb), "true"), ShouldBeTrue)
-		So(strings.EqualFold(FormatBaseTypes(pti16), "103"), ShouldBeTrue)
-		So(strings.EqualFold(FormatBaseTypes(ptu32), "104"), ShouldBeTrue)
-		So(strings.EqualFold(FormatBaseTypes(ptf32, -1), "108.1"), ShouldBeTrue)
-		So(strings.EqualFold(FormatBaseTypes(ptf64), "109.2"), ShouldBeTrue)
-	})
+	tests := []struct {
+		name  string
+		args  args
+		wantS string
+	}{
+		{"bool", args{true, []int{}}, "true"},
+		{"float32", args{float32(100.2), []int{}}, "100.2"},
+		{"float64", args{float64(100.2), []int{}}, "100.2"},
+		{"int", args{int(8), []int{}}, "8"},
+		{"int8", args{int8(-3), []int{}}, "-3"},
+		{"int16", args{int16(-3000), []int{}}, "-3000"},
+		{"int32", args{int32(50000), []int{}}, "50000"},
+		{"int64", args{int64(111111), []int{}}, "111111"},
+		{"uint", args{uint(8), []int{}}, "8"},
+		{"uint8", args{uint8(3), []int{}}, "3"},
+		{"uint16", args{uint16(3000), []int{}}, "3000"},
+		{"uint32", args{uint32(50000), []int{}}, "50000"},
+		{"uint64", args{uint64(111111), []int{}}, "111111"},
+		{"string", args{"hello", []int{}}, "hello"},
+		{"[]byte", args{[]byte{'1', '2', '3'}, []int{}}, "123"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotS := FormatBaseTypes(tt.args.val, tt.args.args...); gotS != tt.wantS {
+				t.Errorf("FormatBaseTypes() = %v, want %v", gotS, tt.wantS)
+			}
+		})
+	}
 }

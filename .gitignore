@@ -12,3 +12,4 @@
 *.out
 /vendor/*
 !/vendor/vendor.json
+/coverHtml/
