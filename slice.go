@@ -53,20 +53,21 @@ func DeleteFromSliceStr(s []string, e string) []string {
 			return append(s[:i], s[i+1:]...)
 		}
 	}
-
 	return s
 }
 
 // DeleteFromSliceStrAll 删除string切片中的 所有出现的指示元素
 func DeleteFromSliceStrAll(s []string, e string) []string {
-	var tmpS []string
+	if s == nil {
+		return s
+	}
 
+	tmpS := make([]string, 0, len(s))
 	for _, v := range s {
 		if v != e {
 			tmpS = append(tmpS, v)
 		}
 	}
-
 	return tmpS
 }
 
@@ -77,20 +78,21 @@ func DeleteFromSliceUint16(s []uint16, e uint16) []uint16 {
 			return append(s[:i], s[i+1:]...)
 		}
 	}
-
 	return s
 }
 
 // DeleteFromSliceUint16All 删除uint16切片中的 所有出现的指示元素
 func DeleteFromSliceUint16All(s []uint16, e uint16) []uint16 {
-	var tmpS []uint16
+	if s == nil {
+		return s
+	}
 
+	tmpS := make([]uint16, 0, len(s))
 	for _, v := range s {
 		if v != e {
 			tmpS = append(tmpS, v)
 		}
 	}
-
 	return tmpS
 }
 
@@ -101,14 +103,16 @@ func DeleteFromSliceUint(s []uint, e uint) []uint {
 			return append(s[:i], s[i+1:]...)
 		}
 	}
-
 	return s
 }
 
 // DeleteFromSliceUintAll 删除uint切片中的 所有出现的指示元素
 func DeleteFromSliceUintAll(s []uint, e uint) []uint {
-	var tmpS []uint
+	if s == nil {
+		return s
+	}
 
+	tmpS := make([]uint, 0, len(s))
 	for _, v := range s {
 		if v != e {
 			tmpS = append(tmpS, v)
@@ -131,8 +135,10 @@ func DeleteFromSliceInt64(s []int64, e int64) []int64 {
 
 // DeleteFromSliceInt64All 删除int64切片中的 所有出现的指示元素
 func DeleteFromSliceInt64All(s []int64, e int64) []int64 {
-	var tmpS []int64
-
+	if s == nil {
+		return s
+	}
+	tmpS := make([]int64, 0, len(s))
 	for _, v := range s {
 		if v != e {
 			tmpS = append(tmpS, v)
@@ -193,9 +199,8 @@ func IsSliceContainsStr(sl []string, str string) bool {
 // IsSliceContainsStrNocase returns true if the string exists in given slice, ignore case.
 // 字符串切片是否含有指定的元素,忽略大小写
 func IsSliceContainsStrNocase(sl []string, str string) bool {
-	str = strings.ToLower(str)
 	for _, s := range sl {
-		if strings.ToLower(s) == str {
+		if strings.EqualFold(s, str) {
 			return true
 		}
 	}
