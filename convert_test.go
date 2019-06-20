@@ -69,7 +69,7 @@ func TestBytes2Str(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{"bytes to string no copy", args{[]byte{'h', 'e', 'l', 'l', 'o'}}, "hello"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
