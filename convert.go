@@ -2,7 +2,9 @@ package utils
 
 import (
 	"fmt"
+	"reflect"
 	"strconv"
+	"unsafe"
 )
 
 type argInt []int
@@ -84,16 +86,22 @@ func FormatBaseTypes(val interface{}, args ...int) (s string) {
 	return s
 }
 
-// Convert different types to byte slice using types and functions in unsafe and reflect package.
-// It has higher performance, but notice that it may be not safe when garbage collection happens.
-// Use it when you need to temporary convert a long string to a byte slice and won't keep it for long time.
-// func Str2ByteSliceNonCopy(val string) []byte {
-//     pslc := (*reflect.SliceHeader)(unsafe.Pointer(&val))
-//     pslc.Cap = pslc.Len
-//     return *(*[]byte)(unsafe.Pointer(pslc))
-// }
+// Str2Bytes Convert different types to byte slice using types and functions in
+// unsafe and reflect package.It has higher performance, but notice that it may
+// be not safe when garbage collection happens.Use it when you need to temporary
+// convert a long string to a byte slice and won't keep it for long time.
+func Str2Bytes(str string) []byte {
+	strHeader := (*reflect.StringHeader)(unsafe.Pointer(&str))
+	bh := reflect.SliceHeader{
+		Data: strHeader.Data,
+		Len:  strHeader.Len,
+		Cap:  strHeader.Len,
+	}
 
-// Zero-copy convert from byte slice to a string
-// func BytesSlice2StrNonCopy(val []byte) string {
-//     return *(*string)(unsafe.Pointer(&val))
-// }
+	return *(*[]byte)(unsafe.Pointer(&bh))
+}
+
+// Bytes2Str Zero-copy convert from byte slice to a string
+func Bytes2Str(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
+}

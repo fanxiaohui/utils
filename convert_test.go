@@ -1,6 +1,9 @@
 package utils
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestFormatBaseTypes(t *testing.T) {
 	type args struct {
@@ -34,5 +37,69 @@ func TestFormatBaseTypes(t *testing.T) {
 				t.Errorf("FormatBaseTypes() = %v, want %v", gotS, tt.wantS)
 			}
 		})
+	}
+}
+
+func TestStr2Bytes(t *testing.T) {
+	type args struct {
+		str string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []byte
+	}{
+		{"string to bytes no copy", args{"hello world"}, []byte("hello world")},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Str2Bytes(tt.args.str); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Str2Bytes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestBytes2Str(t *testing.T) {
+	type args struct {
+		b []byte
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Bytes2Str(tt.args.b); got != tt.want {
+				t.Errorf("Bytes2Str() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func BenchmarkStr2Bytes(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = Str2Bytes("hello world")
+	}
+}
+
+func BenchmarkStr2BytesCommon(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = []byte("hello world")
+	}
+}
+
+func BenchmarkBytes2Str(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = Bytes2Str([]byte{'a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'a'})
+	}
+}
+
+func BenchmarkBytes2StrCommon(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = string([]byte{'a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'a'})
 	}
 }
