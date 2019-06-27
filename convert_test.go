@@ -30,6 +30,7 @@ func TestFormatBaseTypes(t *testing.T) {
 		{"uint64", args{uint64(111111), []int{}}, "111111"},
 		{"string", args{"hello", []int{}}, "hello"},
 		{"[]byte", args{[]byte{'1', '2', '3'}, []int{}}, "123"},
+		{"nil", args{nil, []int{}}, "<nil>"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

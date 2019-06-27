@@ -19,6 +19,32 @@ import (
 	"testing"
 )
 
+func TestHumaneFileSize(t *testing.T) {
+	type args struct {
+		s uint64
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"B", args{5}, "5B"},
+		{"KB", args{100 * 1024}, "100KB"},
+		{"MB", args{100 * 1024 * 1024}, "100MB"},
+		{"GB", args{100 * 1024 * 1024 * 1024}, "100GB"},
+		{"TB", args{100 * 1024 * 1024 * 1024 * 1024}, "100TB"},
+		{"PB", args{100 * 1024 * 1024 * 1024 * 1024 * 1024}, "100PB"},
+		{"EB", args{10 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024}, "10EB"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := HumaneFileSize(tt.args.s); got != tt.want {
+				t.Errorf("HumaneFileSize() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestIsFile(t *testing.T) {
 	if !IsFile("file.go") {
 		t.Errorf("IsFile:\n Expect => %v\n Got => %v\n", true, false)

@@ -1,5 +1,3 @@
-// 扩展net包, 提供ip到数值的转换
-
 package extnet
 
 import (
@@ -8,33 +6,35 @@ import (
 	"testing"
 )
 
-func TestIP2Numer(t *testing.T) {
+func TestIPToNumber(t *testing.T) {
 	type args struct {
 		p net.IP
 	}
+
 	tests := []struct {
 		name    string
 		args    args
 		want    uint32
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{"valid IP", args{net.ParseIP("10.10.0.1")}, 0x0a0a0001, false},
+		{"invalid IP", args{net.ParseIP("10.10.x")}, 0, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := IP2Numer(tt.args.p)
+			got, err := IPToNumber(tt.args.p)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("IP2Numer() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("IPToNumber() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("IP2Numer() = %v, want %v", got, tt.want)
+				t.Errorf("IPToNumber() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestNumer2IP(t *testing.T) {
+func TestNumerToIP(t *testing.T) {
 	type args struct {
 		l uint32
 	}
@@ -43,18 +43,18 @@ func TestNumer2IP(t *testing.T) {
 		args args
 		want net.IP
 	}{
-		// TODO: Add test cases.
+		{"numb", args{0x0a0a0001}, net.ParseIP("10.10.0.1")},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Numer2IP(tt.args.l); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Numer2IP() = %v, want %v", got, tt.want)
+			if got := NumberToIP(tt.args.l); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NumberToIP() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestDot2Numer(t *testing.T) {
+func TestParseIPToNumber(t *testing.T) {
 	type args struct {
 		s string
 	}
@@ -64,23 +64,23 @@ func TestDot2Numer(t *testing.T) {
 		want    uint32
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{"ip string to number", args{"10.10.0.1"}, 0x0a0a0001, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Dot2Numer(tt.args.s)
+			got, err := ParseIPToNumber(tt.args.s)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Dot2Numer() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("ParseIPToNumber() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("Dot2Numer() = %v, want %v", got, tt.want)
+				t.Errorf("ParseIPToNumber() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestNumber2Dot(t *testing.T) {
+func TestNumberToIPstring(t *testing.T) {
 	type args struct {
 		l uint32
 	}
@@ -89,18 +89,18 @@ func TestNumber2Dot(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{"number to ip string", args{0x0a0a0001}, "10.10.0.1"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Number2Dot(tt.args.l); got != tt.want {
-				t.Errorf("Number2Dot() = %v, want %v", got, tt.want)
+			if got := NumberToIPstring(tt.args.l); got != tt.want {
+				t.Errorf("NumberToIPstring() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestMask2Dot(t *testing.T) {
+func TestIPMaskToString(t *testing.T) {
 	type args struct {
 		mask net.IPMask
 	}
@@ -109,18 +109,18 @@ func TestMask2Dot(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{"", args{net.IPMask(net.ParseIP("255.255.255.0"))}, "255.255.255.0"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Mask2Dot(tt.args.mask); got != tt.want {
-				t.Errorf("Mask2Dot() = %v, want %v", got, tt.want)
+			if got := IPMaskToString(tt.args.mask); got != tt.want {
+				t.Errorf("IPMaskToString() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestDot2Mask(t *testing.T) {
+func TestParseIPMask(t *testing.T) {
 	type args struct {
 		s string
 	}
@@ -129,11 +129,11 @@ func TestDot2Mask(t *testing.T) {
 		args args
 		want net.IPMask
 	}{
-		// TODO: Add test cases.
+		{"string to ip mask", args{"255.255.255.0"}, net.IPMask(net.ParseIP("255.255.255.0"))},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Dot2Mask(tt.args.s); !reflect.DeepEqual(got, tt.want) {
+			if got := ParseIPMask(tt.args.s); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Dot2Mask() = %v, want %v", got, tt.want)
 			}
 		})
