@@ -5,30 +5,6 @@ import (
 	"testing"
 )
 
-func TestAppendStr(t *testing.T) {
-	type args struct {
-		strs []string
-		str  string
-	}
-	tests := []struct {
-		name string
-		args args
-		want []string
-	}{
-		{"Append a string that does not exist in slice",
-			args{[]string{"a"}, "b"}, []string{"a", "b"}},
-		{"Append a string that does exist in slice",
-			args{[]string{"a"}, "a"}, []string{"a"}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := AppendStr(tt.args.strs, tt.args.str); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("AppendStr() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestAppendUint(t *testing.T) {
 	type args struct {
 		s []uint
@@ -96,58 +72,6 @@ func TestAppendInt64(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := AppendInt64(tt.args.s, tt.args.e); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("AppendUint16() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestDeleteFromSliceStr(t *testing.T) {
-	type args struct {
-		s []string
-		e string
-	}
-	tests := []struct {
-		name string
-		args args
-		want []string
-	}{
-		{"从string的切片中删除第一个指定元素, 无指定元素值",
-			args{[]string{"a", "b", "b", "c"}, "e"}, []string{"a", "b", "b", "c"}},
-		{"从string的切片中删除第一个指定元素, 有指定元素值",
-			args{[]string{"a", "b", "b", "c"}, "b"}, []string{"a", "b", "c"}},
-		{"从string的切片中删除第一个指定元素, 切片是个nil",
-			args{nil, "e"}, nil},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := DeleteFromSliceStr(tt.args.s, tt.args.e); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("DeleteFromSliceStr() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestDeleteFromSliceStrAll(t *testing.T) {
-	type args struct {
-		s []string
-		e string
-	}
-	tests := []struct {
-		name string
-		args args
-		want []string
-	}{
-		{"从string的切片中删除所有指定元素, 无指定元素值",
-			args{[]string{"a", "b", "b", "c"}, "e"}, []string{"a", "b", "b", "c"}},
-		{"从string的切片中删除所有指定元素, 有指定元素值",
-			args{[]string{"a", "b", "b", "c"}, "b"}, []string{"a", "c"}},
-		{"从string的切片中删除所有指定元素, 切片是个nil",
-			args{nil, "e"}, nil},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := DeleteFromSliceStrAll(tt.args.s, tt.args.e); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("DeleteFromSliceStrAll() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -309,106 +233,6 @@ func TestDeleteFromSliceInt64All(t *testing.T) {
 	}
 }
 
-func TestCompareSliceStr(t *testing.T) {
-	type args struct {
-		s1 []string
-		s2 []string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{"Compare two slices that do have same elements and order",
-			args{[]string{"1", "2", "3"}, []string{"1", "2", "3"}}, true},
-		{"Compare two slices that do have same elements but does not have same order",
-			args{[]string{"2", "1", "3"}, []string{"1", "2", "3"}}, false},
-		{"Compare two slices that have different number of elements",
-			args{[]string{"1", "2"}, []string{"1", "2", "3"}}, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := CompareSliceStr(tt.args.s1, tt.args.s2); got != tt.want {
-				t.Errorf("CompareSliceStr() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestCompareSliceStrU(t *testing.T) {
-	type args struct {
-		s1 []string
-		s2 []string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{"Compare two slices that do have same elements and order",
-			args{[]string{"1", "2", "3"}, []string{"1", "2", "3"}}, true},
-		{"Compare two slices that do have same elements but does not have same order",
-			args{[]string{"2", "1", "3"}, []string{"1", "2", "3"}}, true},
-		{"Compare two slices that do have different elements but has same count",
-			args{[]string{"2", "1", "4"}, []string{"1", "2", "3"}}, false},
-		{"Compare two slices that have different number of elements",
-			args{[]string{"1", "2"}, []string{"1", "2", "3"}}, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := CompareSliceStrU(tt.args.s1, tt.args.s2); got != tt.want {
-				t.Errorf("CompareSliceStrU() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestIsSliceContainsStr(t *testing.T) {
-	type args struct {
-		sl  []string
-		str string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{"字符串slice含有指定字符串,大小写敏感,一样", args{[]string{"A", "b", "c"}, "A"}, true},
-		{"字符串slice不含有指定字符串,大小写敏感,因为小写的", args{[]string{"A", "b", "c"}, "a"}, false},
-		{"字符串slice不含有指定字符串,大小写敏感", args{[]string{"A", "b", "c"}, "d"}, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := IsSliceContainsStr(tt.args.sl, tt.args.str); got != tt.want {
-				t.Errorf("IsSliceContainsStr() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestIsSliceContainsStrNocase(t *testing.T) {
-	type args struct {
-		sl  []string
-		str string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{"字符串slice含有指定字符串,忽略大小写,一样", args{[]string{"A", "b", "c"}, "A"}, true},
-		{"字符串slice不含有指定字符串,忽略大小写,因为小写的", args{[]string{"A", "b", "c"}, "a"}, true},
-		{"字符串slice不含有指定字符串,忽略大小写", args{[]string{"A", "b", "c"}, "d"}, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := IsSliceContainsStrNocase(tt.args.sl, tt.args.str); got != tt.want {
-				t.Errorf("IsSliceContainsStrNocase() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestIsSliceContainsInt64(t *testing.T) {
 	type args struct {
 		sl []int64
@@ -490,26 +314,6 @@ func TestReverseSliceBytes(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ReverseSliceBytes(tt.args.b); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("ReverseSliceBytes() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestReverseString(t *testing.T) {
-	type args struct {
-		s string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{"Reverse String", args{"hello"}, "olleh"},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := ReverseString(tt.args.s); got != tt.want {
-				t.Errorf("ReverseString() = %v, want %v", got, tt.want)
 			}
 		})
 	}
